@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    width: 80%; /* Largura da página ocupando 80% da tela */
+    margin: 0 auto; /* Centraliza a página na tela */
+}
+
+header, footer {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%; /* Evita que a barra superior ultrapasse a largura da página */
+    margin: 0 auto;
+    padding: 0 20px; /* Adiciona um espaço interno para evitar que os elementos toquem nas bordas */
+}
+
+.login-container {
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alinha o nome à esquerda e o botão à direita */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: left; /* Alinha o nome "NutriFit" à esquerda */
+}
+
+.profile-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: auto; /* Move o botão para a direita */
+}
+.welcome-message {
+    color: #fff;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: auto;
+}
+homepage-content {
+    width: 100%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+/* Adicione estilos para o ícone e o texto */
+.icon-container {
+    text-align: center;
+}
+
+.icon {
+    font-size: 36px;
+}
+
+.text-container {
+    text-align: center;
+}
+
+/* Estilos para as rows e cols */
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col {
+    width: 48%; /* Largura de 48% em relação à largura da página */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Estilos para a página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    width: 80%; /* Largura da página ocupando 80% da tela */
+    margin: 0 auto;
+}
+
+/* Estilos para as rows e cols */
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col {
+    width: 49%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: gray; /* Cor de fundo */
+    color: #fff; /* Cor do texto */
+    text-align: center;
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    transition: background-color 0.3s; /* Transição suave na mudança de cor de fundo */
+
+    /* Efeitos ao passar o mouse */
+    &:hover {
+        background-color: #0056b3;
+    }
+}
+
+/* Estilos para a página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+

@@ -21,7 +21,7 @@ function Cadastro() {
   };
 
   // VALIDADOR DO CAMPO DO NUTRICIONISTA - SE A PESSOA É NUTRI, VAI ABRIR O INPUT DO CRN E O PERFIL JÁ MUDA PRA NUTRI
-  const [isNutricionista, setNutricionista] = useState(false);
+  const [checkNutricionista, setNutricionista] = useState(false);
   const [crn, setCrn] = useState('');
   const [perfil, setPerfil] = useState(''); // O valor inicial do perfil é vazio ("Selecione")
   // se for nutricionista, o crn tem que ser obrgiatório
@@ -39,99 +39,154 @@ function Cadastro() {
   };
 
   return (
-    <div>
-      <div className="container">
-        <h2>Cadastre-se</h2>
-        <form>
-        <div className="mb-3">
-            <label htmlFor="nome" className="form-label">
-              Nome
-            </label>
-            <input type="text" className="form-control" id="nome" required="true"/>
+  <div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <h2>Cadastre-se</h2>
+            <form>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nome" placeholder='Digite seu nome completo' required />
+                <label for="nome">Nome Completo</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" placeholder='Digite seu e-mail' required />
+                <label for="email">E-mail</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="telefone" placeholder='Digite seu telefone de contato' required />
+                <label for="telefone">Telefone</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="senha" placeholder='Digite sua senha' required />
+                <label for="senha">Senha</label>
+              </div>
+
+              <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="cpf"  placeholder='Digite seu CPF' required />
+                <label for="cpf">CPF</label>
+              </div>
+
+              <div class="mb-3">
+                <input
+                  type="checkbox"
+                  id="checkNutricionista"
+                  onChange={checkboxNutricionistaChange}
+                />
+                <label for="checkNutricionista" class="m-2">
+                  Sou nutricionista
+                </label>
+              </div>
+              {checkNutricionista && (
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="crn"                  
+                    placeholder='Informe o número do seu CRN'
+                    value={crn}
+                    onChange={(e) => setCrn(e.target.value)}
+                    required={crnObrigatorio}
+                  />
+                  <label for="crn" class="form-label">
+                    CRN
+                  </label>
+                </div>
+              )}
+              <div class="mb-3">
+                <label for="perfil" class="form-label">
+                  Qual seu perfil ou objetivo?
+                </label>
+                <select
+                  class="form-select"
+                  id="perfil"
+                  value={perfil}
+                  onChange={(e) => setPerfil(e.target.value)}
+                  required="true"
+                >
+                  <option value="">Selecione</option>
+                  <option value="atleta">Atleta</option>
+                  <option value="alimentacao_saudavel">Alimentação saudável</option>
+                  <option value="emagrecimento">Emagrecimento</option>
+                  <option value="ganho_massa">Ganho de massa muscular</option>
+                  <option value="introducao_alimentar">Introdução alimentar</option>
+                  <option value="nutricionista">Nutricionista</option>
+                  <option value="restricao_alimentar">Restrição Alimentar</option>
+                </select>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idade"
+                  placeholder='Informe a sua idade'
+                  onChange={(e) => {
+                    idadeValidador(e.target.value);
+                  }}
+                  required="true"
+                />
+                <label for="idade" class="form-label">
+                  Idade
+                </label>
+                {erros.idade && <div class="text-danger">{erros.idade}</div>}
+              </div>
+
+              <div class="row">
+                  <p>Endereço:</p>
+                  <div class="col">
+                    <label for="UF" class="form-label">
+                    Estado (UF)
+                    </label>
+                    <select class="form-select" id="UF">
+                      <option value="">Selecione</option>
+                      <option value="AC">Acre</option>
+                      <option value="AL">Alagoas</option>
+                      <option value="AP">Amapá</option>
+                      <option value="AM">Amazonas</option>
+                      <option value="BA">Bahia</option>
+                      <option value="CE">Ceará</option>
+                      <option value="DF">Distrito Federal</option>
+                      <option value="ES">Espírito Santo</option>
+                      <option value="GO">Goiás</option>
+                      <option value="MA">Maranhão</option>
+                      <option value="MT">Mato Grosso</option>
+                      <option value="MS">Mato Grosso do Sul</option>
+                      <option value="MG">Minas Gerais</option>
+                      <option value="PA">Pará</option>
+                      <option value="PB">Paraíba</option>
+                      <option value="PR">Paraná</option>
+                      <option value="PE">Pernambuco</option>
+                      <option value="PI">Piauí</option>
+                      <option value="RJ">Rio de Janeiro</option>
+                      <option value="RN">Rio Grande do Norte</option>
+                      <option value="RS">Rio Grande do Sul</option>
+                      <option value="RO">Rondônia</option>
+                      <option value="RR">Roraima</option>
+                      <option value="SC">Santa Catarina</option>
+                      <option value="SP">São Paulo</option>
+                      <option value="SE">Sergipe</option>
+                      <option value="TO">Tocantins</option>
+                    </select>
+                  </div>
+
+                  {/* <div class="col">
+                  <div class="form-floating mb-3 mt-3">
+                  <input type="text" class="form-control" id="cidade"  placeholder='Digite sua cidade' required />
+                    <label for="cidade">Cidade</label>
+                  </div>
+                  </div> */}
+              </div>
+
+              <button type="submit" class="btn btn-primary mt-3">
+                Cadastrar
+              </button>
+            </form>
           </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input type="email" className="form-control" id="email" required="true"/>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="senha" className="form-label">
-              Senha
-            </label>
-            <input type="password" className="form-control" id="senha" required="true"/>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="cpf" className="form-label">
-              CPF
-            </label>
-            <input type="text" className="form-control" id="cpf" required="true"/>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="isNutricionista" className="form-label">
-              Sou nutricionista
-            </label>
-            <input
-              type="checkbox"
-              id="isNutricionista"
-              onChange={checkboxNutricionistaChange}
-            />
-          </div>
-          {isNutricionista && (
-            <div className="mb-3">
-              <label htmlFor="crn" className="form-label">
-                CRN
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="crn"
-                value={crn}
-                onChange={(e) => setCrn(e.target.value)}
-                required={crnObrigatorio}
-              />
-            </div>
-          )}
-          <div className="mb-3">
-            <label htmlFor="perfil" className="form-label">
-              Perfil
-            </label>
-            <select
-              className="form-select"
-              id="perfil"
-              value={perfil}
-              onChange={(e) => setPerfil(e.target.value)}
-              required="true"
-            >
-              <option value="">Selecione</option>
-              <option value="atleta">Atleta</option>
-              <option value="alimentacao_saudavel">Alimentação saudável</option>
-              <option value="emagrecimento">Emagrecimento</option>
-              <option value="ganho_massa">Ganho de massa muscular</option>
-              <option value="introducao_alimentar">Introdução alimentar</option>
-              <option value="nutricionista">Nutricionista</option>
-              <option value="restricao_alimentar">Restrição Alimentar</option>
-            </select>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="idade" className="form-label">
-              Idade
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="idade"
-              onChange={(e) => {
-                idadeValidador(e.target.value);
-              }}
-              required="true"
-            />
-            {erros.idade && <div className="text-danger">{erros.idade}</div>}
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Cadastrar
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );

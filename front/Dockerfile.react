@@ -1,0 +1,14 @@
+FROM node:14-alpine
+
+WORKDIR /app/front
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+# porta onde vai rodar a aplicação
+EXPOSE 3000
+
+CMD ["npm", "start"]

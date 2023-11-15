@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  # Frontend React
+  frontend:
+    build:
+      context: ./front
+      dockerfile: Dockerfile.react
+    ports:
+      - "3000:3000"
+
+  # Backend Java (Spring Boot) - deixei comentado pra depois configurar o back, esse é só um modelo
+  # backend:
+  #   build:
+  #     context: .
+  #     dockerfile: back/Dockerfile.java
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - database
+
+  # MySQL Database - deixei comentado pra depois configurar o banco, esse é só um modelo
+  # database:
+  #   image: mysql:latest
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root_password
+  #     MYSQL_DATABASE: your_database
+  #     MYSQL_USER: your_user
+  #     MYSQL_PASSWORD: your_password
+  #   ports:
+  #     - "3306:3306"

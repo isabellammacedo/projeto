@@ -1,13 +1,41 @@
 version: '3'
-
 services:
-  # Frontend React
-  frontend:
-    build:
-      context: ./front
-      dockerfile: Dockerfile.react
+     # Frontend React
+#  frontend:
+#    build:
+#     context: ./front
+#     dockerfile: Dockerfile.react
+#    ports:
+#     - "3000:3000"
+
+  backend:
+    image: daimainardi/nutrifit-api:latest
     ports:
-      - "3000:3000"
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/nutrifit_api
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 3003
+
+  database:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 3003
+      MYSQL_DATABASE: nutrifit_api
+      #MYSQL_USER: root
+      #MYSQL_PASSWORD: nutrifit_api
+
+#   # Frontend React
+#   frontend:
+#     build:
+#       context: ./front
+#       dockerfile: Dockerfile.react
+#     ports:
+#       - "3000:3000"
 
   # Backend Java (Spring Boot) - deixei comentado pra depois configurar o back, esse é só um modelo
   # backend:
@@ -18,6 +46,8 @@ services:
   #     - "8080:8080"
   #   depends_on:
   #     - database
+
+
 
   # MySQL Database - deixei comentado pra depois configurar o banco, esse é só um modelo
   # database:

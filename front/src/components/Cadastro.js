@@ -40,68 +40,68 @@ function Cadastro() {
 
   return (
   <div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 offset-md-2">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8 offset-md-2">
             <h2>Cadastre-se</h2>
             <form>
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="nome" placeholder='Digite seu nome completo' required />
-                <label for="nome">Nome Completo</label>
+              <div className="form-floating mb-3">
+                <input type="text" className="form-control" id="nome" placeholder='Digite seu nome completo' required />
+                <label htmlFor="nome">Nome Completo</label>
               </div>
 
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder='Digite seu e-mail' required />
-                <label for="email">E-mail</label>
+              <div className="form-floating mb-3">
+                <input type="email" className="form-control" id="email" placeholder='Digite seu e-mail' required />
+                <label htmlFor="email">E-mail</label>
               </div>
 
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="telefone" placeholder='Digite seu telefone de contato' required />
-                <label for="telefone">Telefone</label>
+              <div className="form-floating mb-3">
+                <input type="text" className="form-control" id="telefone" placeholder='Digite seu telefone de contato' required />
+                <label htmlFor="telefone">Telefone</label>
               </div>
 
-              <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="senha" placeholder='Digite sua senha' required />
-                <label for="senha">Senha</label>
+              <div className="form-floating mb-3">
+                <input type="password" className="form-control" id="senha" placeholder='Digite sua senha' required />
+                <label htmlFor="senha">Senha</label>
               </div>
 
-              <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="cpf"  placeholder='Digite seu CPF' required />
-                <label for="cpf">CPF</label>
+              <div className="form-floating mb-3">
+              <input type="text" className="form-control" id="cpf"  placeholder='Digite seu CPF' required />
+                <label htmlFor="cpf">CPF</label>
               </div>
 
-              <div class="mb-3">
+              <div className="mb-3">
                 <input
                   type="checkbox"
                   id="checkNutricionista"
                   onChange={checkboxNutricionistaChange}
                 />
-                <label for="checkNutricionista" class="m-2">
+                <label htmlFor="checkNutricionista" className="m-2">
                   Sou nutricionista
                 </label>
               </div>
               {checkNutricionista && (
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="crn"                  
                     placeholder='Informe o número do seu CRN'
                     value={crn}
                     onChange={(e) => setCrn(e.target.value)}
                     required={crnObrigatorio}
                   />
-                  <label for="crn" class="form-label">
+                  <label htmlFor="crn" className="form-label">
                     CRN
                   </label>
                 </div>
               )}
-              <div class="mb-3">
-                <label for="perfil" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="perfil" className="form-label">
                   Qual seu perfil ou objetivo?
                 </label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   id="perfil"
                   value={perfil}
                   onChange={(e) => setPerfil(e.target.value)}
@@ -118,10 +118,10 @@ function Cadastro() {
                 </select>
               </div>
 
-              <div class="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="idade"
                   placeholder='Informe a sua idade'
                   onChange={(e) => {
@@ -129,19 +129,19 @@ function Cadastro() {
                   }}
                   required="true"
                 />
-                <label for="idade" class="form-label">
+                <label htmlFor="idade" className="form-label">
                   Idade
                 </label>
-                {erros.idade && <div class="text-danger">{erros.idade}</div>}
+                {erros.idade && <div className="text-danger">{erros.idade}</div>}
               </div>
 
-              <div class="row">
+              <div className="row">
                   <p>Endereço:</p>
-                  <div class="col">
-                    <label for="UF" class="form-label">
+                  <div className="col">
+                    <label htmlFor="UF" className="form-label">
                     Estado (UF)
                     </label>
-                    <select class="form-select" id="UF">
+                    <select className="form-select" id="UF">
                       <option value="">Selecione</option>
                       <option value="AC">Acre</option>
                       <option value="AL">Alagoas</option>
@@ -173,15 +173,15 @@ function Cadastro() {
                     </select>
                   </div>
 
-                  {/* <div class="col">
-                  <div class="form-floating mb-3 mt-3">
-                  <input type="text" class="form-control" id="cidade"  placeholder='Digite sua cidade' required />
-                    <label for="cidade">Cidade</label>
+                  {/* <div className="col">
+                  <div className="form-floating mb-3 mt-3">
+                  <input type="text" className="form-control" id="cidade"  placeholder='Digite sua cidade' required />
+                    <label htmlFor="cidade">Cidade</label>
                   </div>
                   </div> */}
               </div>
 
-              <button type="submit" class="btn btn-primary mt-3 text-white">
+              <button type="submit" className="btn btn-primary mt-3 text-white">
                 Cadastrar
               </button>
             </form>

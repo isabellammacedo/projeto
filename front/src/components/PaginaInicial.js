@@ -1,5 +1,7 @@
 function Home() {
-  return <div>PÁGINA INICIAL</div>;
+  return (
+  <div className="bg-light">PÁGINA INICIAL</div>
+  );
 }
 
 export default Home;

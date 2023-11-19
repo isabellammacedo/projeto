@@ -1,29 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Agendamento = () => {
-    const [nutricionistas, setNutricionistas] = useState([]);
-    const [nutricionistaSelecionado, setNutricionistaSelecionado] = useState('');
-    const [crnSelecionado, setCrnSelecionado] = useState('');
-    const [showModal, setShowModal] = useState(false);
+  const [nutricionistas, setNutricionistas] = useState([]);
+  const [nutricionistaSelecionado, setNutricionistaSelecionado] = useState('');
+  const [crnSelecionado, setCrnSelecionado] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [showModalLogin, setShowModalLogin] = useState(false);  
+  const [token, setToken] = useState('');
+  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
-    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImlzcyI6IkFQSSBOdXRyaWZpdCIsImV4cCI6MTcwMDM2OTM5N30.0TrQbRvpi2jjK3ecA61ZgJC9oAfOodXiKyPiikQxFQo';
-  
-    const handleModalClose = () => {
-        setShowModal(false);
-    };
-    
-    const handleModalShow = () => {
-        setShowModal(true);
-    };
+  const handleModalClose = () => {
+    setShowModal(false);
+    if (redirect) {
+      setRedirect(false);
+    }
+  };
 
-    useEffect(() => {
+  const handleModalLoginClose = () => {
+    setShowModal(false);
+    if (redirect) {
+      setRedirect(false);
+      // Redireciona para a página de login
+      navigate('/login');
+    }
+  };
+
+  const handleModalShow = () => {
+    setShowModal(true);
+  };
+
+  const handleModalLoginShow = () => {
+    setShowModalLogin(true);
+  };
+
+  useEffect(() => {
+    const tokenUsuarioLogado = Cookies.get('token');
+    setToken(tokenUsuarioLogado);
+
+    if (!tokenUsuarioLogado) {
+      // Se não houver token, exibe o modal informando e redireciona para o Login
+      handleModalLoginShow();
+      setRedirect(true);
+    } else {
       const fetchData = async () => {
         try {
           const resposta = await fetch('/nutricionistas', {
             method: 'GET',
             headers: {
-              'Authorization': `Bearer ${token}`,
+              'Authorization': `Bearer ${tokenUsuarioLogado}`,
               'Content-Type': 'application/json',
             },
           });
@@ -40,62 +68,63 @@ const Agendamento = () => {
       };
   
       fetchData();
-    }, [token]);
-  
-    const handleNutricionistaChange = (event) => {
-        const nutricionistaId = event.target.value;
-    
-        if (nutricionistaId === "") {
-          // Reseta o CRN quando "Selecione" é escolhido
-          setNutricionistaSelecionado('');
-          setCrnSelecionado('');
-        } else {
-          // Pega o CRN do nutri selecionado
-          const nutricionistaSelecionado = nutricionistas.find(n => n.id === parseInt(nutricionistaId));
-          if (nutricionistaSelecionado) {
-            setCrnSelecionado(nutricionistaSelecionado.crn);
-          }
-        }
-    
-        // Atualiza o nutricionista selecionado
-        setNutricionistaSelecionado(nutricionistaId);
-    };
+    }
+  }, [redirect]);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-    
-        try {
-          const resposta = await fetch('/consultas', {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              idPaciente: 1,
-              idNutricionista: nutricionistaSelecionado,
-              motivoDaConsulta: motivoConsulta,
-            }),
-          });
-    
-          if (!resposta.ok) {
-            throw new Error('Erro ao agendar consulta');
-          }
-    
-          handleModalShow();
-        } catch (erro) {
-          console.error(erro);
-        }
-    };
-    
-    const [motivoConsulta, setMotivoConsulta] = useState('');
+  const handleNutricionistaChange = (event) => {
+    const nutricionistaId = event.target.value;
 
-    const handleMotivoConsultaChange = (event) => {
-        setMotivoConsulta(event.target.value);
-    };
+    if (nutricionistaId === "") {
+      // Reseta o CRN quando "Selecione" é escolhido
+      setNutricionistaSelecionado('');
+      setCrnSelecionado('');
+    } else {
+      // Pega o CRN do nutri selecionado
+      const nutricionistaSelecionado = nutricionistas.find(n => n.id === parseInt(nutricionistaId));
+      if (nutricionistaSelecionado) {
+        setCrnSelecionado(nutricionistaSelecionado.crn);
+      }
+    }
 
-    return (
-        <div className="container-fluid">
+    // Atualiza o nutricionista selecionado
+    setNutricionistaSelecionado(nutricionistaId);
+};
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const resposta = await fetch('/consultas', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          idPaciente: 1,
+          idNutricionista: nutricionistaSelecionado,
+          motivoDaConsulta: motivoConsulta,
+        }),
+      });
+
+      if (!resposta.ok) {
+        throw new Error('Erro ao agendar consulta');
+      }
+
+      handleModalShow();
+    } catch (erro) {
+      console.error(erro);
+    }
+  };
+
+  const [motivoConsulta, setMotivoConsulta] = useState('');
+
+  const handleMotivoConsultaChange = (event) => {
+    setMotivoConsulta(event.target.value);
+  };
+
+  return (
+    <div className="container-fluid">
             <div className="row bg-light justify-content-center">
                 <div className="p-5 ml-5 col-6 text-center">
                     <h2 className="text-primary"><strong>Agendar Consulta</strong></h2>
@@ -196,8 +225,25 @@ const Agendamento = () => {
                 </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
-    )
-  }
-  
-  export default Agendamento;
+
+              {/* Modal de Login */}
+            <Modal show={showModalLogin} onHide={handleModalLoginClose}>
+              <Modal.Header closeButton>
+              <Modal.Title>Usuário não logado!</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+              Para agendar sua consulta, você deve estar logado(a).
+              <br /> Você será redirecionado(a) para a página de Login!
+              </Modal.Body>
+              <Modal.Footer>
+              <Button variant="secondary text-white" onClick={handleModalLoginClose}>
+              Fechar
+              </Button>
+              </Modal.Footer>
+            </Modal>
+
+    </div>
+  );
+};
+
+export default Agendamento;

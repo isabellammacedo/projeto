@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 
 function Cadastro() {
 
@@ -40,8 +41,7 @@ function Cadastro() {
     }
   };
 
-  const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImlzcyI6IkFQSSBOdXRyaWZpdCIsImV4cCI6MTcwMDM2OTM5N30.0TrQbRvpi2jjK3ecA61ZgJC9oAfOodXiKyPiikQxFQo';
-  
+
   const handleModalClose = () => {
     setShowModal(false);
   };
@@ -84,11 +84,12 @@ function Cadastro() {
         endpoint = '/pacientes';
         body = dadosComuns;
       }
-  
+      const tokenGeral = Cookies.get('tokenGeral');
+
       const resposta = await fetch(endpoint, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${tokenGeral}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),

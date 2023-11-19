@@ -25,6 +25,7 @@ function App() {
               <Nav.Link as={NavLink} to="/" className="mx-3 my-1">Página Inicial</Nav.Link>
               <Nav.Link as={NavLink} to="/sobre" className="mx-3 my-1">Sobre Nós</Nav.Link>
               <Nav.Link as={NavLink} to="/login" className="mx-3 my-1">Login</Nav.Link>
+              <Nav.Link as={NavLink} to="/cadastro" className="mx-3 my-1">Cadastre-se</Nav.Link>
               <Nav.Link as={NavLink} to="/planos" className="mx-3 my-1">Planos</Nav.Link>
               {/* <Nav.Link as={NavLink} to="/cadastro" className="mx-3 my-1">Cadastre-se</Nav.Link> */}
               <Nav.Link as={NavLink} to="/agendar" className="mx-3"><button type="submit" className="btn btn-outline-primary">

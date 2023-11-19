@@ -37,3 +37,8 @@
 body {
   font-family: 'Roboto', sans-serif !important;
 }
+
+.informacao {
+  font-family: 'Sriracha';
+  /* font-weight: bold; */
+}

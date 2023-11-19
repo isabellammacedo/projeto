@@ -8,7 +8,9 @@ RUN npm install
 
 COPY . .
 
-# porta onde vai rodar a aplicação
+RUN npm run build
+
+# Porta onde a aplicação vai rodar
 EXPOSE 3000
 
 CMD ["npm", "start"]

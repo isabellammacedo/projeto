@@ -1,6 +1,99 @@
-// import coracaoImg from '../assets/images/coracao.png';
+import React, { useEffect, useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 
-function Agendamento() {
+const Agendamento = () => {
+    const [nutricionistas, setNutricionistas] = useState([]);
+    const [nutricionistaSelecionado, setNutricionistaSelecionado] = useState('');
+    const [crnSelecionado, setCrnSelecionado] = useState('');
+    const [showModal, setShowModal] = useState(false);
+
+    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImlzcyI6IkFQSSBOdXRyaWZpdCIsImV4cCI6MTcwMDM2OTM5N30.0TrQbRvpi2jjK3ecA61ZgJC9oAfOodXiKyPiikQxFQo';
+  
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+    
+    const handleModalShow = () => {
+        setShowModal(true);
+    };
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const resposta = await fetch('/nutricionistas', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          });
+  
+          if (!resposta.ok) {
+            throw new Error('Erro ao buscar nutricionistas');
+          }
+  
+          const dados = await resposta.json();
+          setNutricionistas(dados);
+        } catch (erro) {
+          console.error(erro);
+        }
+      };
+  
+      fetchData();
+    }, [token]);
+  
+    const handleNutricionistaChange = (event) => {
+        const nutricionistaId = event.target.value;
+    
+        if (nutricionistaId === "") {
+          // Reseta o CRN quando "Selecione" é escolhido
+          setNutricionistaSelecionado('');
+          setCrnSelecionado('');
+        } else {
+          // Pega o CRN do nutri selecionado
+          const nutricionistaSelecionado = nutricionistas.find(n => n.id === parseInt(nutricionistaId));
+          if (nutricionistaSelecionado) {
+            setCrnSelecionado(nutricionistaSelecionado.crn);
+          }
+        }
+    
+        // Atualiza o nutricionista selecionado
+        setNutricionistaSelecionado(nutricionistaId);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        try {
+          const resposta = await fetch('/consultas', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              idPaciente: 1,
+              idNutricionista: nutricionistaSelecionado,
+              motivoDaConsulta: motivoConsulta,
+            }),
+          });
+    
+          if (!resposta.ok) {
+            throw new Error('Erro ao agendar consulta');
+          }
+    
+          handleModalShow();
+        } catch (erro) {
+          console.error(erro);
+        }
+    };
+    
+    const [motivoConsulta, setMotivoConsulta] = useState('');
+
+    const handleMotivoConsultaChange = (event) => {
+        setMotivoConsulta(event.target.value);
+    };
+
     return (
         <div className="container-fluid">
             <div className="row bg-light justify-content-center">
@@ -10,42 +103,47 @@ function Agendamento() {
                         Preencha o formulário abaixo para agendar sua consulta
                     </h5>
                 </div>
-                {/* <div className="col-2 my-4">
-                    <img src={coracaoImg} alt="Coracao" className="img-fluid" width={150} />
-                </div>  */}
             </div>
-            <div className="container">
-                                
+            <div className="container">              
                 <div className="row mt-5">
                     <div className="col-8 offset-2">
                         {/* idNutricionista, nome e crn, motivo da consulta */}
-                        <form>
-
+                        <form onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="my-3 col-9">
                                     <label htmlFor="nutricionista" className="form-label font-weight-bold">
-                                        <strong>
-                                        Selecione o nutricionista:
-                                        </strong>
+                                    <strong>Selecione o nutricionista:</strong>
                                     </label>
-                                    <select className="form-select" id="nutricionista" required>
-                                        <option value="">Selecione</option>
-                                        <option value="1">Ana</option>
-                                        <option value="2">João</option>
+                                    <select
+                                    className="form-select"
+                                    id="nutricionista"
+                                    required
+                                    value={nutricionistaSelecionado}
+                                    onChange={handleNutricionistaChange}
+                                    >
+                                    <option value="">Selecione</option>
+                                    {nutricionistas.map((nutricionista) => (
+                                        <option key={nutricionista.id} value={nutricionista.id}>
+                                        {nutricionista.nome}
+                                        </option>
+                                    ))}
                                     </select>
                                 </div>
 
                                 <div className="my-3 col-3">
                                     <label htmlFor="crnSelecionado" className="form-label font-weight-bold">
-                                        <strong>
-                                        CRN
-                                        </strong>
+                                    <strong>CRN</strong>
                                     </label>
-                                    <input type="text" value="" className="form-control" id="crnSelecionado" placeholder='CRN' readOnly></input>
+                                    <input
+                                    type="text"
+                                    value={crnSelecionado}
+                                    className="form-control"
+                                    id="crnSelecionado"
+                                    placeholder="CRN"
+                                    readOnly
+                                    />
                                 </div>
                             </div>
-
-
                             <div className="my-3 row">
                                 <div>
                                     <label htmlFor="motivoConsulta" className="form-label">
@@ -53,7 +151,13 @@ function Agendamento() {
                                         Conte-nos um pouco sobre o motivo de sua consulta:
                                         </strong>
                                     </label>
-                                    <textarea className="form-control" id="motivoConsulta" placeholder='Digite aqui o motivo de sua consulta' rows="3" required ></textarea>
+                                    <textarea className="form-control" 
+                                    id="motivoConsulta" 
+                                    placeholder='Digite aqui o motivo de sua consulta' 
+                                    rows="3" 
+                                    value={motivoConsulta}
+                                    onChange={handleMotivoConsultaChange}
+                                    required ></textarea>
                                 </div>
                                 <div className="my-2 informacao">
                                     <p>
@@ -63,7 +167,7 @@ function Agendamento() {
                             </div>
 
                             <div className="row d-flex justify-content-end">
-                                <button type="submit" className="btn btn-primary mt-3 text-white col-3">
+                                <button type="submit" className="btn btn-primary mt-3 col-sm-6 text-white col-lg-3">
                                     Agendar
                                 </button>
                             </div>
@@ -77,6 +181,21 @@ function Agendamento() {
                 </svg>
             </div>
 
+            {/* Modal */}
+            <Modal show={showModal} onHide={handleModalClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Consulta Agendada!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                Sua consulta foi agendada com sucesso! :)
+                <br/>Em breve, o nutricionista entrará em contato com você para confirmar o endereço, a data e horário da consulta.
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary text-white" onClick={handleModalClose}>
+                    Fechar
+                </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
   }

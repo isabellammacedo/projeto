@@ -2,6 +2,16 @@
 
 Este é um projeto tem como objetivo conectar pacientes a profissionais de nutricao. Ele permite agendar consultas, visualizar receitas e oferece login exclusivo para os profissionais acessarem a agenda. O design prioriza eficiência e usabilidade, refletindo nosso compromisso com a qualidade acadêmica.
 
+## Equipe do  Projeto NutriFit
+
+Daiane Bovolini Mainardi
+Kelvin Heynrik De Medeiros
+Isabella Moussa Macedo
+Richardson Ruiz Fernandes De Oliveira
+Lucas Santos Lopes
+Marcos Santos Silva
+Janaina Soares Correa
+
 ## Pré-requisitos
 
 - Docker Desktop

@@ -1,0 +1,45 @@
+.imagemInicial {
+    width: 40vw;
+}
+
+.controls {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    padding: 0;
+    color: var(--bs-secondary) !important;
+    text-align: center;
+    background: none;
+    border: 0;
+
+    svg {
+        height: 30px;
+    }
+}
+
+.control-left {
+    left:0;
+}
+
+.control-right {
+    right:0;
+}
+
+.carousel-indicators button {
+    width: 0.4rem !important;
+    height: 0.4rem !important;
+    border-radius: 50%;
+  }
+  
+.carousel-indicators button:not(:first-child) {
+    margin-left: 0.5rem;
+}
+
+.carousel-indicators .active {
+    background-color: #ff7a54;
+}

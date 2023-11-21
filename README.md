@@ -4,13 +4,13 @@ Este é um projeto tem como objetivo conectar pacientes a profissionais de nutri
 
 ## Equipe do  Projeto NutriFit
 
-Daiane Bovolini Mainardi
-Kelvin Heynrik De Medeiros
-Isabella Moussa Macedo
-Richardson Ruiz Fernandes De Oliveira
-Lucas Santos Lopes
-Marcos Santos Silva
-Janaina Soares Correa
+Daiane Bovolini Mainardi  
+Kelvin Heynrik De Medeiros  
+Isabella Moussa Macedo  
+Richardson Ruiz Fernandes De Oliveira  
+Lucas Santos Lopes  
+Marcos Santos Silva  
+Janaina Soares Correa  
 
 ## Pré-requisitos
 

@@ -2,7 +2,7 @@
 
 Este é um projeto tem como objetivo conectar pacientes a profissionais de nutricao. Ele permite agendar consultas, visualizar receitas e oferece login exclusivo para os profissionais acessarem a agenda. O design prioriza eficiência e usabilidade, refletindo nosso compromisso com a qualidade acadêmica.
 
-## Equipe do  Projeto NutriFit
+## Equipe do  Projeto NutriFit - **Grupo 25**
 
 Daiane Bovolini Mainardi  
 Kelvin Heynrik De Medeiros  

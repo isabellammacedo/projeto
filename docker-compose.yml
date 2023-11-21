@@ -1,12 +1,12 @@
 version: '3'
 services:
   # Frontend React
-  frontend:
-    build:
-     context: ./front
-     dockerfile: Dockerfile.react
-    ports:
-     - "3000:3000"
+  #frontend:
+  #  build:
+  #   context: ./front
+  #   dockerfile: Dockerfile.react
+  #  ports:
+  #   - "3000:3000"
 
   backend:
     image: daimainardi/nutrifit-api:latest

@@ -34,6 +34,7 @@ Janaina Soares Correa
 
 - Swagger: http://localhost:8080/swagger-ui/index.html
 - Front-end: http://localhost:3000/
+- Back-end: https://github.com/daimainardi/nutrifit_api  
 
 ## Video mostrando Aplicação em funcionamento 
 https://youtu.be/qHwYGVLHEnw
